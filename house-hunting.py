@@ -38,7 +38,8 @@ monthly_return = 0.0
 while(current_savings < down_payment):
     current_savings = current_savings + monthly_return + salary_return
     monthly_return = current_savings * r / 12.0
-    print(current_savings)
+    # Used for controling if savings go up correctly. To activate remove the # in line 42.
+    # print(current_savings)
     month_count = month_count + 1
     
 print("Months it took is: " + str(month_count))
