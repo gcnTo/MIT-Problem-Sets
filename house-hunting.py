@@ -42,4 +42,4 @@ while(current_savings < down_payment):
     # print(current_savings)
     month_count = month_count + 1
     
-print("Months it took is: " + str(month_count))
+print("Months it'll take to save enough for the down-payment is: " + str(month_count))
