@@ -49,6 +49,7 @@ while(current_savings < down_payment):
     if(month_count > 0 and month_count % 6 == 0):
         monthly_salary = monthly_salary + monthly_salary * semi_annual_raise
         salary_return = monthly_salary * portion_saved
+        
     month_count = month_count + 1
     
 print("Months it'll take to save enough for the down-payment is: " + str(month_count))
