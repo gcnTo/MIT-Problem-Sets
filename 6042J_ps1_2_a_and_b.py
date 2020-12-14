@@ -1,5 +1,5 @@
 """
-CHECKS IF THE EQUATIONS ARE TRUE ARE NOT 
+CHECKS IF THE EQUATIONS ARE EQUALS OR NOT 
 EQ FROM: https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-042j-mathematics-for-computer-science-fall-2010/assignments/MIT6_042JF10_assn01.pdf
 """
 
