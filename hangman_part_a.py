@@ -1,7 +1,7 @@
 # Problem Set 2, hangman.py
-# Name: 
-# Collaborators:
-# Time spent:
+# Name: gcnTo   
+# Collaborators: None   
+# Time spent: 4 - 6 hours
 
 # Hangman Game
 # -----------------------------------
@@ -105,14 +105,14 @@ def get_guessed_word(secret_word, letters_guessed):
 
 
 
-def get_available_letters(letters_guessed):
+def get_available_letters(letters_guessed, letters_wrong):
     '''
     letters_guessed: list (of letters), which letters have been guessed so far
     returns: string (of letters), comprised of letters that represents which letters have not
       yet been guessed.
     '''
     alphabet = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"}
-    return alphabet - letters_guessed
+    return sorted(alphabet - set(letters_guessed) - set(letters_wrong))
     
     
 
@@ -143,19 +143,23 @@ def hangman(secret_word):
     '''
     letters_guessed = []
     guess = []
+    letters_wrong = []
     num_of_guesses = 6
     print("The secret word contains", len(secret_word),"letters. And you have", num_of_guesses,"guesses.")
     while (num_of_guesses >= 0 and is_word_guessed(secret_word, letters_guessed) == False):
         if(num_of_guesses == 0):           
             return print("The secret word was",secret_word)
         print("Guesses left", num_of_guesses)
+        print(get_available_letters(letters_guessed, letters_wrong))
         guess_element = input("Guess a letter:").lower()
         if (guess_element.isalpha()):
             guess.append(guess_element)
             if(letters_secret_word.count(guess_element) > 0):
                 letters_guessed += guess
+                
                 print(get_guessed_word(secret_word, letters_guessed))
             else:
+                letters_wrong += guess
                 num_of_guesses -= 1
             
 
