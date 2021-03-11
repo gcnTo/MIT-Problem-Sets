@@ -50,6 +50,7 @@ def choose_word(wordlist):
 # so that it can be accessed from anywhere in the program
 wordlist = load_words()
 secret_word = choose_word(wordlist)
+# secret_word = "apple" #Used for testing/debugging.
 letters_secret_word = []
 for letter in secret_word:
     letters_secret_word.append(letter)
@@ -72,7 +73,7 @@ def is_word_guessed(secret_word, letters_guessed):
         if (i == "_"):
             truth += 1 
     if (truth == 0):
-        print("You have found the meaning of life.")
+        print("Congrats!")
         return True
     else:
         print("Keep searching.")
@@ -146,13 +147,14 @@ def hangman(secret_word):
     warnings = 3
     print("The secret word contains", len(secret_word),"letters. And you have", num_of_guesses,"guesses.")
     while (num_of_guesses >= 0 and is_word_guessed(secret_word, letters_guessed) == False):
-        if(num_of_guesses == 0 or warnings == 0):           
+        if(num_of_guesses <= 0 or warnings <= 0):      
             return print("The secret word was",secret_word)
         print("Guesses left", num_of_guesses)
         print(get_available_letters(letters_guessed, letters_wrong))
         guess_element = input("Guess a letter:").lower()
         if (guess_element.isalpha()):
             guess.append(guess_element)
+            print("guess is",guess)
             if (guess_element in letters_guessed or guess_element in letters_wrong ):
                 warnings -= 1 
                 print("You have already guessed that letter. Warnings remaining:", warnings)
@@ -172,6 +174,15 @@ def hangman(secret_word):
             warnings -= 1
             print("Please input a letter!")
             print("You have", warnings , "warnings left.")
+    else:
+        secret_word = set(secret_word)
+        score = num_of_guesses * len(secret_word)
+        print("Your score is:", score)
+        
+            
+    
+    
+    
             
 
 
