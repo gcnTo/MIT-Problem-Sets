@@ -126,7 +126,6 @@ def hangman(secret_word):
       letters the secret_word contains and how many guesses s/he starts with.
       
     *DONE The user should start with 6 guesses
-
     * Before each round, you should display to the user how many guesses
       s/he has left and the letters that the user has not yet guessed.
     
@@ -135,7 +134,6 @@ def hangman(secret_word):
     
     * The user should receive feedback immediately after each guess 
       about whether their guess appears in the computer's word.
-
     * After each guess, you should display to the user the 
       partially guessed word so far.
     
@@ -145,22 +143,35 @@ def hangman(secret_word):
     guess = []
     letters_wrong = []
     num_of_guesses = 6
+    warnings = 3
     print("The secret word contains", len(secret_word),"letters. And you have", num_of_guesses,"guesses.")
     while (num_of_guesses >= 0 and is_word_guessed(secret_word, letters_guessed) == False):
-        if(num_of_guesses == 0):           
+        if(num_of_guesses == 0 or warnings == 0):           
             return print("The secret word was",secret_word)
         print("Guesses left", num_of_guesses)
         print(get_available_letters(letters_guessed, letters_wrong))
         guess_element = input("Guess a letter:").lower()
         if (guess_element.isalpha()):
             guess.append(guess_element)
-            if(letters_secret_word.count(guess_element) > 0):
+            if (guess_element in letters_guessed or guess_element in letters_wrong ):
+                warnings -= 1 
+                print("You have already guessed that letter. Warnings remaining:", warnings)
+            elif(letters_secret_word.count(guess_element) > 0):
                 letters_guessed += guess
                 
                 print(get_guessed_word(secret_word, letters_guessed))
             else:
                 letters_wrong += guess
-                num_of_guesses -= 1
+                print(guess_element)
+                if (guess_element in ["a","e","i","o","u"]):
+                    num_of_guesses -= 2
+                else:
+                    num_of_guesses -= 1
+            
+        else:
+            warnings -= 1
+            print("Please input a letter!")
+            print("You have", warnings , "warnings left.")
             
 
 
@@ -197,7 +208,6 @@ def show_possible_matches(my_word):
              at which that letter occurs in the secret word are revealed.
              Therefore, the hidden letter(_ ) cannot be one of the letters in the word
              that has already been revealed.
-
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
     pass
@@ -222,7 +232,6 @@ def hangman_with_hints(secret_word):
       
     * The user should receive feedback immediately after each guess 
       about whether their guess appears in the computer's word.
-
     * After each guess, you should display to the user the 
       partially guessed word so far.
       
