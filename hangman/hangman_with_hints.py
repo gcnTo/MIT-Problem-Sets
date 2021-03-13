@@ -1,7 +1,7 @@
-# Problem Set 2, hangman.py
+# Problem Set 2, hangman_with_hints.py
 # Name: gcnTo   
 # Collaborators: None   
-# Time spent: 4 - 6 hours
+# Time spent: 6 - 8 hours
 
 # Hangman Game
 # -----------------------------------
@@ -49,8 +49,8 @@ def choose_word(wordlist):
 # Load the list of words into the variable wordlist
 # so that it can be accessed from anywhere in the program
 wordlist = load_words()
-# secret_word = choose_word(wordlist)
-secret_word = "apple" #Used for testing/debugging.
+secret_word = choose_word(wordlist)
+# secret_word = "apple" #Used for testing/debugging.
 letters_secret_word = []
 for letter in secret_word:
     letters_secret_word.append(letter)
@@ -278,8 +278,53 @@ def hangman_with_hints(secret_word):
     
     Follows the other limitations detailed in the problem write-up.
     '''
-    # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    letters_guessed = []
+    guess = []
+    letters_wrong = []
+    num_of_guesses = 6
+    warnings = 3
+    hints = 3
+    print("The secret word contains", len(secret_word),"letters. And you have", num_of_guesses,"guesses.")
+    while (num_of_guesses >= 0 and is_word_guessed(secret_word, letters_guessed) == False):
+        if(num_of_guesses <= 0 or warnings <= 0):      
+            return print("The secret word was",secret_word)
+        print("Guesses left", num_of_guesses)
+        print(get_available_letters(letters_guessed, letters_wrong))
+        guess_element = input("Guess a letter:").lower()
+        if (guess_element.isalpha()):
+            guess.append(guess_element)
+            print("guess is",guess)
+            if (guess_element in letters_guessed or guess_element in letters_wrong ):
+                warnings -= 1 
+                print("You have already guessed that letter. Warnings remaining:", warnings)
+            elif(letters_secret_word.count(guess_element) > 0):
+                letters_guessed += guess
+                
+                print(get_guessed_word(secret_word, letters_guessed))
+            else:
+                letters_wrong += guess
+                print(guess_element)
+                if (guess_element in ["a","e","i","o","u"]):
+                    num_of_guesses -= 2
+                else:
+                    num_of_guesses -= 1
+        elif (guess_element == "*" and hints > 0):
+            hints -= 1
+            my_string = ""
+            my_arg = get_guessed_word(secret_word, letters_guessed)
+            for i in range(len(my_arg)):
+                my_string = my_string + my_arg[i]
+                # print(my_string)
+            show_possible_matches(my_string)
+            
+        else:
+            warnings -= 1
+            print("Please input a letter!")
+            print("You have", warnings , "warnings left.")
+    else:
+        secret_word = set(secret_word)
+        score = num_of_guesses * len(secret_word)
+        print("Your score is:", score)
 
 
 
@@ -296,12 +341,12 @@ if __name__ == "__main__":
     # uncomment the following two lines.
     
     # secret_word = choose_word(wordlist)
-    hangman(secret_word)
+    # hangman(secret_word)
 
 ###############
     
     # To test part 3 re-comment out the above lines and 
     # uncomment the following two lines. 
     
-    #secret_word = choose_word(wordlist)
-    #hangman_with_hints(secret_word)
+    # secret_word = choose_word(wordlist)
+    hangman_with_hints(secret_word)
