@@ -235,19 +235,32 @@ def is_valid_word(word, hand, word_list):
     hand_copy = hand.copy()
     word_list_copy = word_list.copy()
     
+    for k in word:
+        if k != "*":
+            if word in word_list_copy:
+                for letter in word:
+                    if letter not in hand_copy:
+                        return False
+                    elif letter in hand_copy:
+                        hand_copy[letter] -= 1
     
-    if word in word_list_copy:
-        for letter in word:
-            if letter not in hand_copy:
-                return False
-            elif letter in hand_copy:
-                hand_copy[letter] -= 1
+                for i in hand_copy:
+                    if hand_copy[i] < 0:
+                        return False
+                    else:
+                        return True
+        elif k == "*":
+            word_with_asterisk = list(word)
+            for index in range(len(word_with_asterisk)):
+                if word_with_asterisk[index] == "*":
+                    for vowel in VOWELS:
+                        word_with_asterisk[index] = vowel
+                        if ''.join(word_with_asterisk) in word_list_copy:
+                            return True
+                    return False
+                        
+                        
     
-    for i in hand_copy:
-        if hand_copy[i] < 0:
-            return False
-        else:
-            return True
     
     
 
