@@ -238,6 +238,9 @@ def is_valid_word(word, hand, word_list):
     hand_copy = hand.copy()
     word_list_copy = word_list.copy()
     
+    if len(word) > calculate_handlen(hand):
+        return False
+    
     for k in word:
         if k != "*":
             if word in word_list_copy:
@@ -314,12 +317,10 @@ def play_hand(hand, word_list):
     """
     
     # BEGIN PSEUDOCODE <-- Remove this comment when you implement this function
-    
     # Keep track of the total score
-    zero_counter = 0
     play_hand_total_score = 0
     
-    while zero_counter != len(hand):
+    while calculate_handlen(hand) > 0:
     
         # As long as there are still letters left in the hand:
         
@@ -330,9 +331,11 @@ def play_hand(hand, word_list):
             # Ask user for input
             n = calculate_handlen(hand)
             word = input("Enter your next word: ")
+            word = word.lower()
             
             # If the input is two exclamation points:
             if word == "!!":
+                print("Total score is", play_hand_total_score)
                 break
      
             # Otherwise (the input is not two exclamation points)
@@ -343,24 +346,27 @@ def play_hand(hand, word_list):
                 # and the updated total score
                 play_hand_total_score += get_word_score(word, n)
                 print("Total score is", play_hand_total_score)
+                hand = update_hand(hand, word)
     
             # Otherwise (the word is not valid):
             else:
             # Reject invalid word (print a message)
                 print("Invalid word!")
-                break
+                hand = update_hand(hand, word)
                     
                 # update the user's hand by removing the letters of their inputted word
-            hand = update_hand(hand, word)
+                
                 
         # Game is over (user entered '!!' or ran out of letters),
         # so tell user the total score
         
     
         # Return the total score as result of function
-        for i in hand:
-            if hand[i] == 0:
-                zero_counter += 1
+    if calculate_handlen(hand) < 0:
+        print("\nRan out of letters... the round has come to an end!")
+        print("Total score is", play_hand_total_score)
+                
+
     
 
 
