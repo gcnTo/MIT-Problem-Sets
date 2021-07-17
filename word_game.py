@@ -5,7 +5,7 @@
 #
 # Name          : gcnTo
 # Collaborators : None
-# Time spent    : approximately 5 hours
+# Time spent    : Approximately 5 hours.
 
 import math
 import random
@@ -353,6 +353,7 @@ def play_hand(hand, word_list):
             else:
             # Reject invalid word (print a message)
                 print("Invalid word!")
+                print("Total score is", play_hand_total_score)
                 hand = update_hand(hand, word)
                     
                 # update the user's hand by removing the letters of their inputted word
@@ -406,6 +407,10 @@ def substitute_hand(hand, letter):
     letter = letter.lower()
     hand_copy = hand.copy()
     
+    if letter not in hand_copy:
+        letter = input("Letter not in hand please pick another letter!\n")
+        substitute_hand(hand, letter)
+    
     for i in hand_copy:
         if i == letter:
             hand_copy[i] -= 1
@@ -450,14 +455,21 @@ def play_game(word_list):
     word_list: list of lowercase strings
     """
     
-    # num_hands = input("How many round would you like to play?")
+    num_hands = int(input("How many rounds would you like to play?\n"))
     
-    # for i in range(num_hands):
-    #     hand = 0
-    #     play_hand(hand, word_list)
-    
-# TO DO... Remove this line when you implement this function
-    
+    for i in range(num_hands):
+        
+        print("Round", i+1,"!\n")
+        hand = deal_hand(HAND_SIZE)
+        display_hand(hand)
+        choice = input("Would you like to change a letter?\n")
+        
+        if choice == "yes":
+            letter = input("Which letter would you like to change?\n")
+            hand = substitute_hand(hand, letter)
+            
+        play_hand(hand, word_list)
+
 
 
 #
