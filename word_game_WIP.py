@@ -13,6 +13,7 @@ import string
 
 VOWELS = 'aeiou'
 CONSONANTS = 'bcdfghjklmnpqrstvwxyz'
+MIXED = VOWELS + CONSONANTS
 HAND_SIZE = 7
 
 SCRABBLE_LETTER_VALUES = {
@@ -342,9 +343,9 @@ def play_hand(hand, word_list):
                 # If the word is valid:
             elif is_valid_word(word, hand, word_list):
                 # Tell the user how many points the word earned,
-                print("You have earned", get_word_score(word, n), "points!")
+                print("You have earned", get_word_score(word, HAND_SIZE), "points!")
                 # and the updated total score
-                play_hand_total_score += get_word_score(word, n)
+                play_hand_total_score += get_word_score(word, HAND_SIZE)
                 print("Total score is", play_hand_total_score)
                 hand = update_hand(hand, word)
     
@@ -402,9 +403,21 @@ def substitute_hand(hand, letter):
     letter: string
     returns: dictionary (string -> int)
     """
+    letter = letter.lower()
+    hand_copy = hand.copy()
     
-    pass  # TO DO... Remove this line when you implement this function
-       
+    for i in hand_copy:
+        if i == letter:
+            hand_copy[i] -= 1
+    
+    #Pick new letter at random
+    new_letter = random.choice(MIXED)
+    
+    while new_letter in hand_copy:
+        new_letter = random.choice(MIXED)
+    else:
+        hand_copy[new_letter] = 1
+        return hand_copy
     
 def play_game(word_list):
     """
@@ -437,7 +450,13 @@ def play_game(word_list):
     word_list: list of lowercase strings
     """
     
-    print("play_game not implemented.") # TO DO... Remove this line when you implement this function
+    # num_hands = input("How many round would you like to play?")
+    
+    # for i in range(num_hands):
+    #     hand = 0
+    #     play_hand(hand, word_list)
+    
+# TO DO... Remove this line when you implement this function
     
 
 
