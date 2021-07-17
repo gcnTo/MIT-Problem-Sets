@@ -5,7 +5,7 @@
 #
 # Name          : gcnTo
 # Collaborators : None
-# Time spent    : estimated 30 minutes for each problem on average
+# Time spent    : approximately 5 hours
 
 import math
 import random
