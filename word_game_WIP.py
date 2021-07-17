@@ -3,9 +3,9 @@
 # The 6.0001 Word Game
 # Created by: Kevin Luu <luuk> and Jenna Wiens <jwiens>
 #
-# Name          : <your name>
-# Collaborators : <your collaborators>
-# Time spent    : <total time>
+# Name          : gcnTo
+# Collaborators : None
+# Time spent    : estimated 30 minutes for each problem on average
 
 import math
 import random
