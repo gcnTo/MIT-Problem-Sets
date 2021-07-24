@@ -147,7 +147,15 @@ class Message(object):
         Returns: the message text (string) in which every character is shifted
              down the alphabet by the input shift
         '''
-        pass #delete this line and replace with your code here
+        message_text_new = []
+        shift_dict = Message(self.message_text).build_shift_dict(shift)
+        
+        for i in self.message_text:
+            if i in shift_dict:
+                message_text_new.append(shift_dict[i])
+        new_message_text = "".join(message_text_new)
+        return new_message_text
+            
 
 class PlaintextMessage(Message):
     def __init__(self, text, shift):
