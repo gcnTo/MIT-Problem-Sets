@@ -147,6 +147,14 @@ class Message(object):
         Returns: the message text (string) in which every character is shifted
              down the alphabet by the input shift
         '''
+        punctuation_spaces = {}
+        
+        for i in range(len(self.message_text)):
+            if self.message_text[i] not in string.ascii_lowercase:
+                punctuation_spaces[i] = self.message_text[i]
+        
+        print(punctuation_spaces)
+        
         message_text_new = []
         shift_dict = Message(self.message_text).build_shift_dict(shift)
         
@@ -154,6 +162,9 @@ class Message(object):
             if i in shift_dict:
                 message_text_new.append(shift_dict[i])
         new_message_text = "".join(message_text_new)
+        
+        for key in punctuation_spaces:
+            new_message_text = new_message_text[:key] + punctuation_spaces[key] + new_message_text[key:]
         return new_message_text
             
 
@@ -234,7 +245,8 @@ class CiphertextMessage(Message):
             self.message_text (string, determined by input text)
             self.valid_words (list, determined using helper function load_words)
         '''
-        pass
+        self.message_text = text
+        self.valid_words = load_words("words.txt")
         
     def decrypt_message(self):
         '''
@@ -252,7 +264,26 @@ class CiphertextMessage(Message):
         Returns: a tuple of the best shift value used to decrypt the message
         and the decrypted message text using that shift value
         '''
-        pass
+        old_counter = 0
+        best_key = 0
+        for shift_key in range(26):
+            decrypted = Message(self.message_text).apply_shift(shift_key + 1)
+            decrypted_split = decrypted.split(" ")
+            
+            new_counter = 0
+            for word in decrypted_split:
+                if word in self.valid_words:
+                    print(word)
+                    new_counter += 1
+                    
+            if new_counter > old_counter:
+                old_counter = new_counter
+                best_key = shift_key + 1
+            
+                
+        
+        return (best_key, Message(self.message_text).apply_shift(best_key))
+    
         
 
     
