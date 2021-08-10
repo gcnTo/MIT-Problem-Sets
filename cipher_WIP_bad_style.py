@@ -173,15 +173,18 @@ class PlaintextMessage(Message):
             self.message_text_encrypted (string, created using shift)
 
         '''
-        pass #delete this line and replace with your code here
-
+        self.shift = shift
+        self.text = Message(text).message_text
+        self.encryption_dict = Message(text).build_shift_dict(shift)
+        self.message_text_encrypted = Message(text).apply_shift(shift)
+        
     def get_shift(self):
         '''
         Used to safely access self.shift outside of the class
         
         Returns: self.shift
         '''
-        pass #delete this line and replace with your code here
+        return self.shift
 
     def get_encryption_dict(self):
         '''
@@ -189,7 +192,7 @@ class PlaintextMessage(Message):
         
         Returns: a COPY of self.encryption_dict
         '''
-        pass #delete this line and replace with your code here
+        return self.encryption_dict.copy()
 
     def get_message_text_encrypted(self):
         '''
@@ -197,7 +200,7 @@ class PlaintextMessage(Message):
         
         Returns: self.message_text_encrypted
         '''
-        pass #delete this line and replace with your code here
+        return self.message_text_encrypted
 
     def change_shift(self, shift):
         '''
@@ -209,8 +212,16 @@ class PlaintextMessage(Message):
 
         Returns: nothing
         '''
-        pass #delete this line and replace with your code here
-
+        text = self.text
+        self.shift = shift
+        self.encryption_dict = Message(text).build_shift_dict(shift)
+        print(self.message_text_encrypted) 
+        self.message_text_encrypted = Message(text).apply_shift(shift)
+        print(self.message_text_encrypted)
+    
+    # FOR DEBUGGING
+    def __str__(self): 
+        return "{self.message_text_encrypted}".format(self=self)
 
 class CiphertextMessage(Message):
     def __init__(self, text):
@@ -223,8 +234,8 @@ class CiphertextMessage(Message):
             self.message_text (string, determined by input text)
             self.valid_words (list, determined using helper function load_words)
         '''
-        pass #delete this line and replace with your code here
-
+        pass
+        
     def decrypt_message(self):
         '''
         Decrypt self.message_text by trying every possible shift value
@@ -241,7 +252,14 @@ class CiphertextMessage(Message):
         Returns: a tuple of the best shift value used to decrypt the message
         and the decrypted message text using that shift value
         '''
-        pass #delete this line and replace with your code here
+        pass
+        
+
+    
+            
+        
+            
+        
 
 if __name__ == '__main__':
 
