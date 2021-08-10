@@ -1,7 +1,7 @@
 # Problem Set 4B
 # Name: <your name here>
 # Collaborators:
-# Time Spent: x:xx
+# Time Spent: Approx. 6 hours without style guide.
 
 import string
 
