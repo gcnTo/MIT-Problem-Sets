@@ -1,7 +1,7 @@
 # Problem Set 4B
-# Name: <your name here>
-# Collaborators:
-# Time Spent: x:xx
+# Name: gcnTo
+# Collaborators: None
+# Time Spent: 3-5 hours
 
 import string
 
@@ -16,14 +16,14 @@ def load_words(file_name):
     Depending on the size of the word list, this function may
     take a while to finish.
     '''
-    print("Loading word list from file...")
+    # print("Loading word list from file...")
     # inFile: file
     inFile = open(file_name, 'r')
     # wordlist: list of strings
     wordlist = []
     for line in inFile:
         wordlist.extend([word.lower() for word in line.split(' ')])
-    print("  ", len(wordlist), "words loaded.")
+    # print("  ", len(wordlist), "words loaded.")
     return wordlist
 
 def is_word(word_list, word):
@@ -153,7 +153,6 @@ class Message(object):
             if self.message_text[i] not in string.ascii_lowercase:
                 punctuation_spaces[i] = self.message_text[i]
         
-        print(punctuation_spaces)
         
         message_text_new = []
         shift_dict = Message(self.message_text).build_shift_dict(shift)
@@ -226,9 +225,9 @@ class PlaintextMessage(Message):
         text = self.message_text
         self.shift = shift
         self.encryption_dict = Message(text).build_shift_dict(shift)
-        print(self.message_text_encrypted) 
+        # print(self.message_text_encrypted) 
         self.message_text_encrypted = Message(text).apply_shift(shift)
-        print(self.message_text_encrypted)
+        # print(self.message_text_encrypted)
     
     # FOR DEBUGGING
     def __str__(self): 
@@ -272,7 +271,7 @@ class CiphertextMessage(Message):
             new_counter = 0
             for word in decrypted_split:
                 if word in self.valid_words:
-                    print(word)
+                    # print(word)
                     new_counter += 1
                     
             if new_counter > old_counter:
@@ -307,4 +306,17 @@ if __name__ == '__main__':
 
     #TODO: best shift value and unencrypted story 
     
-    pass #delete this line and replace with your code here
+    #Example test case (PlaintextMessage)
+    plaintext = PlaintextMessage('hello', 3)
+    print('Expected Output: khoor')
+    print('Actual Output:', plaintext.get_message_text_encrypted(),"\n")
+    
+    #Example test case (CiphertextMessage)
+    ciphertext = CiphertextMessage('khoor')
+    print('Expected Output:', (23, 'hello'))
+    print('Actual Output:', ciphertext.decrypt_message(),"\n")
+    
+    #Example test case story decryption.
+    ciphertext = CiphertextMessage(get_story_string().lower())
+    print("Encrypted Message:", get_story_string(),"\n") 
+    print('Decrypted Message:', ciphertext.decrypt_message())
