@@ -68,5 +68,24 @@ if __name__ == '__main__':
 #    to be three characters or fewer as you will have n! permutations for a 
 #    sequence of length n)
 
-    pass #delete this line and replace with your code here
+    example_input_1 = "ab"
+    print("Input:", example_input_1)
+    print("Expected Output:", ['ab','ba'])
+    print("Actual Output:", get_permutations(example_input_1))
+    if set(['ab','ba']) == set(get_permutations(example_input_1)):
+        print("Correct.","\n")
+
+    example_input_2 = "abc"
+    print("Input:", example_input_2)
+    print("Expected Output:", ['abc', 'acb', 'bac', 'bca', 'cab', 'cba'])
+    print("Actual Output:", get_permutations(example_input_2))
+    if set(['abc', 'acb', 'bac', 'bca', 'cab', 'cba']) == set(get_permutations(example_input_2)):
+        print("Correct.","\n")
+
+    example_input_3 = "123"
+    print("Input:", example_input_3)
+    print("Expected Output:", ['123', '132', '213', '231', '312', '321'])
+    print("Actual Output:", get_permutations(example_input_3))
+    if set(['123', '132', '213', '231', '312', '321']) == set(get_permutations(example_input_3)):
+        print("Correct.")
 
