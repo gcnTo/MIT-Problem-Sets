@@ -1,7 +1,7 @@
 # Problem Set 4B
 # Name: <your name here>
 # Collaborators:
-# Time Spent: Approx. 6 hours without style guide.
+# Time Spent: x:xx
 
 import string
 
@@ -184,8 +184,8 @@ class PlaintextMessage(Message):
             self.message_text_encrypted (string, created using shift)
 
         '''
+        Message.__init__(self, text)
         self.shift = shift
-        self.text = Message(text).message_text
         self.encryption_dict = Message(text).build_shift_dict(shift)
         self.message_text_encrypted = Message(text).apply_shift(shift)
         
@@ -223,7 +223,7 @@ class PlaintextMessage(Message):
 
         Returns: nothing
         '''
-        text = self.text
+        text = self.message_text
         self.shift = shift
         self.encryption_dict = Message(text).build_shift_dict(shift)
         print(self.message_text_encrypted) 
@@ -245,8 +245,7 @@ class CiphertextMessage(Message):
             self.message_text (string, determined by input text)
             self.valid_words (list, determined using helper function load_words)
         '''
-        self.message_text = text
-        self.valid_words = load_words("words.txt")
+        Message.__init__(self, text)
         
     def decrypt_message(self):
         '''
