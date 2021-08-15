@@ -1,7 +1,7 @@
 # Problem Set 4B
 # Name: gcnTo
 # Collaborators: None
-# Time Spent: 3-5 hours
+# Time Spent: 4-6 hours
 
 import string
 
